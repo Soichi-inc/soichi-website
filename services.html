@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Soichi Inc.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        'soichi-black': '#1a1a1a',
+                        'soichi-gray': '#f5f5f7',
+                        'soichi-blue': '#0066cc',
+                        'soichi-red': '#cc0000',
+                        'soichi-yellow': '#FFD700',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="css/custom.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black">
+
+    <!-- Navigation (Minimalist) -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md text-black transition-all duration-300 border-b border-gray-100"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex justify-between h-24 items-center">
+                <a href="index.html" class="text-2xl font-black tracking-tighter">SOICHI</a>
+
+                <div class="hidden md:flex space-x-12">
+                    <a href="about.html" class="nav-link text-sm uppercase">About</a>
+                    <a href="services.html" class="nav-link text-sm uppercase">Services</a>
+                    <a href="news.html" class="nav-link text-sm uppercase">News</a>
+                    <a href="contact.html" class="nav-link text-sm uppercase">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-black focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-black text-white absolute w-full h-screen top-0 left-0 flex flex-col justify-center items-center space-y-8 z-40">
+            <button id="mobile-menu-close" class="absolute top-8 right-6 text-white">
+                <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <a href="about.html" class="text-2xl font-bold">ABOUT</a>
+            <a href="services.html" class="text-2xl font-bold">SERVICES</a>
+            <a href="news.html" class="text-2xl font-bold">NEWS</a>
+            <a href="contact.html" class="text-2xl font-bold">CONTACT</a>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-24">
+        <!-- Page Header -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-12 mb-24">
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-8 reveal-text"><span>SERVICES</span></h1>
+            <p class="text-xl md:text-2xl font-bold leading-relaxed fade-up max-w-3xl">
+                テクノロジーとクリエイティブの融合で、<br>ビジネスに革新をもたらす。
+            </p>
+        </section>
+
+        <!-- AX / BX Business -->
+        <section id="axbx" class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="order-2 md:order-1 fade-up">
+                        <span class="text-sm font-bold tracking-widest uppercase mb-4 block text-gray-500">Business
+                            Transformation</span>
+                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">事業変革支援<br>(AX / BX)</h2>
+                        <p class="text-lg text-gray-800 leading-relaxed mb-8 text-justify">
+                            AI（Artificial
+                            Intelligence）とブロックチェーン（Blockchain）技術を活用し、クライアント企業のデジタルトランスフォーメーションを加速させます。単なるツール導入に留まらず、ビジネスモデルの再構築から運用までをハンズオンで支援します。
+                        </p>
+
+                        <div class="space-y-8">
+                            <div class="border-l-4 border-black pl-6">
+                                <h4 class="text-xl font-bold mb-2">AI Transformation (AX)</h4>
+                                <p class="text-gray-600">
+                                    業務プロセスの自動化、データ分析による意思決定の高度化、生成AIを活用したクリエイティブ生成など、AIの実装による生産性向上と付加価値創出を実現します。
+                                </p>
+                            </div>
+                            <div class="border-l-4 border-black pl-6">
+                                <h4 class="text-xl font-bold mb-2">Blockchain Transformation (BX)</h4>
+                                <p class="text-gray-600">
+                                    Web3領域への参入支援、トークンエコノミーの設計、NFTを活用したマーケティング施策など、分散型台帳技術を用いた新しい価値交換の仕組みを構築します。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-1 md:order-2 fade-up">
+                        <img src="images/service_axbx.jpg" alt="AX BX Visualization"
+                            class="w-full shadow-2xl parallax-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media Business -->
+        <section id="media" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-6 lg:px-12">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="fade-up">
+                        <img src="images/service_media.jpg" alt="Media Solution" class="w-full shadow-2xl parallax-img">
+                    </div>
+                    <div class="fade-up">
+                        <span class="text-sm font-bold tracking-widest uppercase mb-4 block text-gray-500">Media & IP
+                            Solution</span>
+                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">メディア & IP<br>ソリューション</h2>
+                        <p class="text-lg text-gray-800 leading-relaxed mb-8 text-justify">
+                            自社運営のYouTubeチャンネル「Sho-Time
+                            GOLF」で培ったノウハウを活かし、企業のメディア化とIP（知的財産）開発を支援します。ターゲット層に深く刺さるコンテンツ企画と、熱量の高いコミュニティ形成を実現します。
+                        </p>
+
+                        <div class="space-y-8">
+                            <div class="border-l-4 border-black pl-6">
+                                <h4 class="text-xl font-bold mb-2">YouTube Media Operation</h4>
+                                <p class="text-gray-600">
+                                    チャンネル設計、企画立案、撮影・編集、分析までをトータルサポート。アルゴリズムをハックするだけでなく、視聴者の心を動かすストーリーテリングを重視します。
+                                </p>
+                            </div>
+                            <div class="border-l-4 border-black pl-6">
+                                <h4 class="text-xl font-bold mb-2">IP Development & Branding</h4>
+                                <p class="text-gray-600">
+                                    オリジナルグッズの開発やイベント企画など、オンラインの枠を超えたブランド体験を提供。ファンとのエンゲージメントを高め、LTV（顧客生涯価値）の最大化に貢献します。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-24 bg-black text-white text-center">
+            <div class="max-w-4xl mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold mb-8">Start Your Transformation</h2>
+                <p class="text-gray-400 mb-10 text-lg">
+                    事業変革のご相談、メディア活用のご提案など、<br>お気軽にお問い合わせください。
+                </p>
+                <a href="contact.html"
+                    class="inline-block px-12 py-5 text-lg font-bold text-black bg-soichi-yellow rounded-full hover:bg-white transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    Contact Us
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-24 px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 mb-24">
+                <div>
+                    <h2 class="text-4xl font-black mb-8">SOICHI</h2>
+                    <p class="text-gray-400 font-medium leading-relaxed max-w-md">
+                        〒150-0043<br>
+                        東京都渋谷区道玄坂1丁目10番8号<br>
+                        渋谷道玄坂東急ビル2F−C
+                    </p>
+                </div>
+                <div class="flex flex-col space-y-6 items-start md:items-end">
+                    <a href="about.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">ABOUT</a>
+                    <a href="services.html"
+                        class="text-3xl font-bold hover:text-gray-400 transition-colors">SERVICES</a>
+                    <a href="news.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">NEWS</a>
+                    <a href="contact.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">CONTACT</a>
+                </div>
+            </div>
+            <div
+                class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2025 Soichi, Inc.</p>
+                <p>Technology x Creative</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('mobile-menu-close');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.remove('hidden');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            menu.classList.add('hidden');
+        });
+    </script>
+
+    <!-- GSAP & Main JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

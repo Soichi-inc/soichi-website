@@ -1,0 +1,175 @@
+/* GO Inc Style Redesign */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+
+:root {
+    --soichi-black: #111111;
+    --soichi-white: #FFFFFF;
+    --soichi-yellow: #FFD700;
+    --soichi-gray: #F5F5F5;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: var(--soichi-white);
+    color: var(--soichi-black);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Typography */
+.font-heading {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+/* Utilities */
+.bg-black {
+    background-color: var(--soichi-black);
+}
+
+.text-black {
+    color: var(--soichi-black);
+}
+
+.bg-white {
+    background-color: var(--soichi-white);
+}
+
+.text-white {
+    color: var(--soichi-white);
+}
+
+/* Navigation */
+.nav-link {
+    position: relative;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--soichi-black);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero-container {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.8;
+    /* Slightly muted if needed */
+}
+
+/* Animations */
+.reveal-text {
+    overflow: hidden;
+    display: block;
+}
+
+.reveal-text span {
+    display: block;
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+/* Button */
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background-color: var(--soichi-black);
+    color: var(--soichi-white);
+    font-weight: 700;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--soichi-yellow);
+    color: var(--soichi-black);
+    transform: translateY(-2px);
+}
+
+/* Section Headers */
+.section-title {
+    font-size: 3rem;
+    /* Large */
+    font-weight: 900;
+    margin-bottom: 2rem;
+    border-bottom: 4px solid var(--soichi-black);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+/* Grid Layouts */
+.grid-card {
+    border-top: 1px solid #eee;
+    padding-top: 2rem;
+    transition: all 0.3s ease;
+}
+
+.grid-card:hover {
+    background-color: #fafafa;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FFD700;
+}
+
+/* Image Hover Zoom */
+.img-zoom-container {
+    overflow: hidden;
+    border-radius: 1rem;
+    /* rounded-2xl */
+}
+
+.img-zoom-container img {
+    transition: transform 0.7s ease;
+}
+
+.img-zoom-container:hover img {
+    transform: scale(1.05);
+}

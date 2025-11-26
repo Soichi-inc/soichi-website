@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Soichi Inc.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    },
+                    colors: {
+                        'soichi-black': '#1a1a1a',
+                        'soichi-gray': '#f5f5f7',
+                        'soichi-blue': '#0066cc',
+                        'soichi-red': '#cc0000',
+                        'soichi-yellow': '#FFD700',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="css/custom.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black">
+
+    <!-- Navigation (Minimalist) -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md text-black transition-all duration-300 border-b border-gray-100"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="flex justify-between h-24 items-center">
+                <a href="index.html" class="text-2xl font-black tracking-tighter">SOICHI</a>
+
+                <div class="hidden md:flex space-x-12">
+                    <a href="about.html" class="nav-link text-sm uppercase">About</a>
+                    <a href="services.html" class="nav-link text-sm uppercase">Services</a>
+                    <a href="news.html" class="nav-link text-sm uppercase">News</a>
+                    <a href="contact.html" class="nav-link text-sm uppercase">Contact</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-black focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-black text-white absolute w-full h-screen top-0 left-0 flex flex-col justify-center items-center space-y-8 z-40">
+            <button id="mobile-menu-close" class="absolute top-8 right-6 text-white">
+                <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <a href="about.html" class="text-2xl font-bold">ABOUT</a>
+            <a href="services.html" class="text-2xl font-bold">SERVICES</a>
+            <a href="news.html" class="text-2xl font-bold">NEWS</a>
+            <a href="contact.html" class="text-2xl font-bold">CONTACT</a>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-24">
+        <!-- Page Header -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-12 mb-24">
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-8 reveal-text"><span>ABOUT</span></h1>
+            <p class="text-xl md:text-2xl font-bold leading-relaxed fade-up max-w-3xl">
+                テクノロジーとクリエイティブで、<br>ビジネスの未来を実装する。
+            </p>
+        </section>
+
+        <!-- CEO Message -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-12 mb-32">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="fade-up">
+                    <img src="images/ceo.png" alt="CEO 挾間 彬"
+                        class="w-full grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+                <div class="fade-up">
+                    <h2 class="text-3xl font-black mb-8">「想像」を「実装」する。</h2>
+                    <div class="space-y-6 text-lg text-gray-800 leading-relaxed text-justify">
+                        <p>
+                            私たちSoichiは、単なる技術提供者ではありません。
+                            クライアントの皆様が描く未来のビジョンを、テクノロジーとクリエイティブの力で具現化するパートナーです。
+                        </p>
+                        <p>
+                            AIやブロックチェーンといった先端技術は、あくまで手段に過ぎません。
+                            重要なのは、それらを使って「誰に」「どんな価値」を届けるか。
+                            そして、その価値をどのように「伝える」か。
+                        </p>
+                        <p>
+                            私たちは、エンジニアリングとストーリーテリングの両輪で、
+                            ビジネスの変革と成長を加速させます。
+                        </p>
+                    </div>
+                    <div class="mt-12">
+                        <p class="font-bold text-xl">Soichi株式会社</p>
+                        <p class="text-gray-600">代表取締役CEO 挾間 彬</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Company Profile -->
+        <section class="max-w-7xl mx-auto px-6 lg:px-12">
+            <h2 class="section-title reveal-text"><span>PROFILE</span></h2>
+
+            <div class="border-t border-black mt-12">
+                <dl class="divide-y divide-gray-200">
+                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
+                        <dt class="font-bold text-lg md:col-span-1">会社名</dt>
+                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">Soichi株式会社 (Soichi, Inc.)</dd>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
+                        <dt class="font-bold text-lg md:col-span-1">設立</dt>
+                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">2023年1月20日</dd>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
+                        <dt class="font-bold text-lg md:col-span-1">代表者</dt>
+                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">代表取締役CEO 挾間 彬</dd>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
+                        <dt class="font-bold text-lg md:col-span-1">所在地</dt>
+                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">
+                            〒150-0043<br>
+                            東京都渋谷区道玄坂1丁目10番8号<br>
+                            渋谷道玄坂東急ビル2F−C
+                        </dd>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
+                        <dt class="font-bold text-lg md:col-span-1">事業内容</dt>
+                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>事業変革支援 (AX / BX)</li>
+                                <li>メディア & IPソリューション</li>
+                                <li>Web/App開発</li>
+                            </ul>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-24 px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 mb-24">
+                <div>
+                    <h2 class="text-4xl font-black mb-8">SOICHI</h2>
+                    <p class="text-gray-400 font-medium leading-relaxed max-w-md">
+                        〒150-0043<br>
+                        東京都渋谷区道玄坂1丁目10番8号<br>
+                        渋谷道玄坂東急ビル2F−C
+                    </p>
+                </div>
+                <div class="flex flex-col space-y-6 items-start md:items-end">
+                    <a href="about.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">ABOUT</a>
+                    <a href="services.html"
+                        class="text-3xl font-bold hover:text-gray-400 transition-colors">SERVICES</a>
+                    <a href="news.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">NEWS</a>
+                    <a href="contact.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">CONTACT</a>
+                </div>
+            </div>
+            <div
+                class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2025 Soichi, Inc.</p>
+                <p>Technology x Creative</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('mobile-menu-close');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.remove('hidden');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            menu.classList.add('hidden');
+        });
+    </script>
+
+    <!-- GSAP & Main JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
