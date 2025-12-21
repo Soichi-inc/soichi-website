@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Soichi Inc.</title>
+    <title>Soichi Inc. | Technology x Creative</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -22,7 +22,7 @@
                         'soichi-gray': '#f5f5f7',
                         'soichi-blue': '#0066cc',
                         'soichi-red': '#cc0000',
-                        'soichi-yellow': '#FFD700',
+                        'soichi-yellow': '#FFD700', // Approximate yellow from logo, adjust if needed
                     }
                 }
             }
@@ -35,26 +35,14 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        /* Removed old CSS animation in favor of GSAP */
     </style>
 </head>
 
 <body class="bg-white text-black">
 
     <!-- Navigation (Minimalist) -->
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md text-black transition-all duration-300 border-b border-gray-100"
-        id="navbar">
+    <nav class="fixed w-full z-50 mix-blend-difference text-white transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="flex justify-between h-24 items-center">
                 <a href="index.html" class="block">
@@ -69,7 +57,7 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-black focus:outline-none">
+                <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
                     <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
@@ -93,83 +81,56 @@
     </nav>
 
     <main class="pt-32 pb-24">
-        <!-- Page Header -->
-        <section class="max-w-7xl mx-auto px-6 lg:px-12 mb-24">
-            <h1 class="text-6xl md:text-8xl font-black tracking-tighter mb-8 reveal-text"><span>ABOUT</span></h1>
-            <p class="text-xl md:text-2xl font-bold leading-relaxed fade-up max-w-3xl">
-                テクノロジーとクリエイティブで、<br>ビジネスの未来を実装する。
-            </p>
-        </section>
+        <section class="max-w-4xl mx-auto px-6 lg:px-12 mb-24">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-12">プライバシーポリシー</h1>
 
-        <!-- CEO Message -->
-        <section class="max-w-7xl mx-auto px-6 lg:px-12 mb-32">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="fade-up">
-                    <img src="images/ceo.png" alt="CEO 挾間 彬"
-                        class="w-full grayscale hover:grayscale-0 transition-all duration-500">
-                </div>
-                <div class="fade-up">
-                    <h2 class="text-3xl font-black mb-8">「想像」を「実装」する。</h2>
-                    <div class="space-y-6 text-lg text-gray-800 leading-relaxed text-justify">
-                        <p>
-                            私たちSoichiは、単なる技術提供者ではありません。
-                            クライアントの皆様が描く未来のビジョンを、テクノロジーとクリエイティブの力で具現化するパートナーです。
-                        </p>
-                        <p>
-                            AIやブロックチェーンといった先端技術は、あくまで手段に過ぎません。
-                            重要なのは、それらを使って「誰に」「どんな価値」を届けるか。
-                            そして、その価値をどのように「伝える」か。
-                        </p>
-                        <p>
-                            私たちは、エンジニアリングとストーリーテリングの両輪で、
-                            ビジネスの変革と成長を加速させます。
-                        </p>
-                    </div>
-                    <div class="mt-12">
-                        <p class="font-bold text-xl">Soichi株式会社</p>
-                        <p class="text-gray-600">代表取締役CEO 挾間 彬</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <div class="space-y-12 text-gray-800 leading-relaxed">
+                <section>
+                    <h2 class="text-2xl font-bold mb-4">第1条（個人情報）</h2>
+                    <p>「個人情報」とは、個人情報保護法にいう「個人情報」を指すものとし、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日、住所、電話番号、連絡先その他の記述等により特定の個人を識別できる情報及び容貌、指紋、声紋にかかるデータ、及び健康保険証の保険者番号などの当該情報単体から特定の個人を識別できる情報（個人識別情報）を指します。
+                    </p>
+                </section>
 
-        <!-- Company Profile -->
-        <section class="max-w-7xl mx-auto px-6 lg:px-12">
-            <h2 class="section-title reveal-text"><span>PROFILE</span></h2>
+                <section>
+                    <h2 class="text-2xl font-bold mb-4">第2条（個人情報の収集方法）</h2>
+                    <p>当社は、ユーザーが利用登録をする際に氏名、生年月日、住所、電話番号、メールアドレス、銀行口座番号、クレジットカード番号、運転免許証番号などの個人情報をお尋ねすることがあります。また、ユーザーと提携先などとの間でなされたユーザーの個人情報を含む取引記録や決済に関する情報を、当社の提携先（情報提供元、広告主、広告配信先などを含みます。以下、｢提携先｣といいます。）などから収集することがあります。
+                    </p>
+                </section>
 
-            <div class="border-t border-black mt-12">
-                <dl class="divide-y divide-gray-200">
-                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
-                        <dt class="font-bold text-lg md:col-span-1">会社名</dt>
-                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">Soichi株式会社 (Soichi, Inc.)</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
-                        <dt class="font-bold text-lg md:col-span-1">設立</dt>
-                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">2023年1月20日</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
-                        <dt class="font-bold text-lg md:col-span-1">代表者</dt>
-                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">代表取締役CEO 挾間 彬</dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
-                        <dt class="font-bold text-lg md:col-span-1">所在地</dt>
-                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">
-                            〒150-0043<br>
-                            東京都渋谷区道玄坂1丁目10番8号<br>
-                            渋谷道玄坂東急ビル2F−C
-                        </dd>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-4 py-8">
-                        <dt class="font-bold text-lg md:col-span-1">事業内容</dt>
-                        <dd class="mt-2 md:mt-0 md:col-span-3 text-lg">
-                            <ul class="list-disc list-inside space-y-2">
-                                <li>事業変革支援 (AX / BX)</li>
-                                <li>メディア & IPソリューション</li>
-                                <li>Web/App開発</li>
-                            </ul>
-                        </dd>
-                    </div>
-                </dl>
+                <section>
+                    <h2 class="text-2xl font-bold mb-4">第3条（個人情報を収集・利用する目的）</h2>
+                    <p>当社が個人情報を収集・利用する目的は、以下のとおりです。</p>
+                    <ul class="list-disc pl-6 space-y-2 mt-4">
+                        <li>当社サービスの提供・運営のため</li>
+                        <li>ユーザーからのお問い合わせに回答するため（本人確認を行うことを含む）</li>
+                        <li>ユーザーが利用中のサービスの新機能、更新情報、キャンペーン等及び当社が提供する他のサービスの案内のメールを送付するため</li>
+                        <li>メンテナンス、重要なお知らせなど必要に応じたご連絡のため</li>
+                        <li>利用規約に違反したユーザーや、不正・不当な目的でサービスを利用しようとするユーザーの特定をし、ご利用をお断りするため</li>
+                        <li>上記の利用目的に付随する目的</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4">第4条（利用目的の変更）</h2>
+                    <p>当社は、利用目的が変更前と関連性を有すると合理的に認められる場合に限り、個人情報の利用目的を変更するものとします。利用目的の変更を行った場合には、変更後の目的について、当社所定の方法により、ユーザーに通知し、または本ウェブサイト上に公表するものとします。
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4">第5条（個人情報の第三者提供）</h2>
+                    <p>当社は、次に掲げる場合を除いて、あらかじめユーザーの同意を得ることなく、第三者に個人情報を提供することはありません。ただし、個人情報保護法その他の法令で認められる場合を除きます。</p>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4">第6条（お問い合わせ窓口）</h2>
+                    <p class="mb-4">本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。</p>
+                    <p>
+                        住所：東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C<br>
+                        社名：Soichi株式会社<br>
+                        Eメールアドレス：jo@soichi.tokyo
+                    </p>
+                    <p class="mt-8 font-bold">才能のエンパワーメントを通じて、文化とエンターテインメントの未来を創造する。</p>
+                </section>
             </div>
         </section>
     </main>
