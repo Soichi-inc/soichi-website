@@ -8,9 +8,8 @@ const Footer = () => {
                     <div>
                         <h2 className="text-4xl font-black mb-8">SOICHI</h2>
                         <p className="text-gray-400 font-medium leading-relaxed max-w-md">
-                            〒150-0043<br />
-                            東京都渋谷区道玄坂1丁目10番8号<br />
-                            渋谷道玄坂東急ビル2F−C
+                            〒107-0061<br />
+                            東京都港区北青山二丁目14番4号
                         </p>
                     </div>
                     <div className="flex flex-col space-y-6 items-start md:items-end uppercase font-bold">
