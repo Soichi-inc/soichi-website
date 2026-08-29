@@ -109,7 +109,26 @@
                     下記フォームよりお気軽にお問い合わせください。
                 </p>
 
-                <form action="https://formspree.io/f/xzzzdnkb" method="POST" class="space-y-12">
+                <!-- 送信完了メッセージ（送信後にJSで表示） -->
+                <div id="form-success" class="hidden border-2 border-black p-10 md:p-12">
+                    <p class="text-sm font-bold uppercase tracking-wider text-soichi-yellow mb-4">Message Sent</p>
+                    <h2 class="text-3xl md:text-4xl font-black mb-6">お問い合わせを承りました。</h2>
+                    <p class="text-gray-800 leading-relaxed">
+                        ご入力いただいたメールアドレス宛に、受付確認のメールをお送りしています。<br>
+                        担当者より順次ご連絡させていただきますので、今しばらくお待ちください。
+                    </p>
+                </div>
+
+                <form id="contact-form" class="space-y-12">
+                    <!-- 送信エラー表示 -->
+                    <div id="form-error" class="hidden border-l-4 border-soichi-red bg-red-50 px-6 py-4 text-soichi-red font-bold"></div>
+
+                    <!-- ハニーポット：人には見えず、ボットだけが入力する項目 -->
+                    <div aria-hidden="true" class="absolute w-px h-px overflow-hidden" style="left:-9999px;">
+                        <label for="website">Website（この項目は入力しないでください）</label>
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                    </div>
+
                     <div class="group">
                         <label for="name"
                             class="block text-sm font-bold uppercase tracking-wider mb-2 group-focus-within:text-soichi-yellow transition-colors">Name
@@ -211,6 +230,67 @@
         closeBtn.addEventListener('click', () => {
             menu.classList.add('hidden');
         });
+    </script>
+
+    <!-- お問い合わせフォームの送信処理 -->
+    <script>
+        (function () {
+            const form = document.getElementById('contact-form');
+            if (!form) return;
+
+            const button = form.querySelector('button[type="submit"]');
+            const buttonLabel = button.textContent.trim();
+            const errorBox = document.getElementById('form-error');
+            const successBox = document.getElementById('form-success');
+            const subjectSelect = document.getElementById('subject');
+            // ページ表示時刻。送信が速すぎる場合にボットと判定するためサーバーへ送る。
+            const renderedAt = Date.now();
+
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+                errorBox.classList.add('hidden');
+                button.disabled = true;
+                button.textContent = 'SENDING...';
+
+                // select の value は business 等の英字キーなので、表示テキストの方を送る
+                const selected = subjectSelect.selectedIndex > 0
+                    ? subjectSelect.options[subjectSelect.selectedIndex].text.trim()
+                    : 'お問い合わせ';
+
+                const payload = {
+                    site: 'corporate',
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: selected,
+                    message: document.getElementById('message').value,
+                    privacy: document.getElementById('privacy').checked,
+                    website: document.getElementById('website').value,
+                    ts: renderedAt
+                };
+
+                try {
+                    const response = await fetch('https://agency.soichi.tokyo/send_mail.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const data = await response.json().catch(() => ({}));
+                        throw new Error(data.message || '送信に失敗しました。恐れ入りますが、時間をおいて再度お試しください。');
+                    }
+
+                    form.classList.add('hidden');
+                    successBox.classList.remove('hidden');
+                    successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } catch (error) {
+                    errorBox.textContent = error.message || '送信に失敗しました。恐れ入りますが、時間をおいて再度お試しください。';
+                    errorBox.classList.remove('hidden');
+                    button.disabled = false;
+                    button.textContent = buttonLabel;
+                }
+            });
+        })();
     </script>
 
     <!-- GSAP & Main JS -->
