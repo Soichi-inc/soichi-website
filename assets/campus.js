@@ -19,12 +19,12 @@
   dialog.id='soichi-campus';dialog.className='campus';dialog.setAttribute('aria-labelledby','campus-title');dialog.setAttribute('data-lenis-prevent','');
   dialog.innerHTML=`<header class="campus-bar"><a class="campus-brand" href="#campus-title" aria-label="バーチャルオフィス">soichi<span>.</span><small>VIRTUAL CAMPUS / 01</small></a><button class="campus-close" aria-label="バーチャルオフィスを閉じる">EXIT ${door}</button></header>
   <div class="campus-intro"><p class="campus-kicker">SOMEWHERE BETWEEN HUMAN & AI</p><h2 id="campus-title">A SMALL WORLD.<br><em>BIG POSSIBILITIES.</em></h2></div>
-  <div class="campus-weather"><span class="campus-orb" aria-hidden="true"></span><div><time class="campus-clock"></time><small class="campus-weather-label"></small></div><div class="campus-time-modes" aria-label="風景の時間帯">${[['auto','日本時間'],['day','昼'],['night','夜']].map(([v,n])=>`<button data-time="${v}" aria-pressed="${v==='auto'}">${n}</button>`).join('')}</div></div>
+  <div class="campus-weather"><time class="campus-clock" aria-label="東京の現在時刻"></time></div>
   <p class="campus-pan-hint">SWIPE TO EXPLORE ↔</p><div class="campus-landscape"><div class="campus-stars" aria-hidden="true"></div><div class="campus-map" role="group" aria-label="5つのオフィス">
   <img class="campus-photo campus-photo-day" src="${assets}metro-day.webp" alt="" draggable="false"><img class="campus-photo campus-photo-night" src="${assets}metro-night.webp" alt="" draggable="false">
   ${offices.map(o=>`<button class="campus-building campus-building--${o.id}" data-office="${o.id}" style="--x:${o.x}%;--y:${o.y}%;--office-color:${o.color}" aria-label="${o.name}の中を覗く"><span class="building-pin" aria-hidden="true">＋</span><span class="building-label"><small>${o.en}</small><strong>${o.name}</strong><span>ENTER ↗</span></span></button>`).join('')}
   </div></div>
-  <section class="campus-room" aria-labelledby="room-title" hidden><div class="room-heading"><button class="room-back">← 街に戻る</button><p class="campus-kicker room-kicker"></p><h3 id="room-title" tabindex="-1"></h3><p>小さな仲間たちが、次の可能性をつくっています。</p></div><div class="room-stage"><img class="room-photo" src="${assets}interior-photo.webp" alt="" draggable="false"><img class="room-photo room-photo-night" src="${assets}interior-night-photo.webp" alt="" draggable="false"><div class="room-agents">${[0,1,2,3].map(i=>`<div class="room-agent" data-agent="${i}"><span class="agent-thought"></span><img src="${assets}worker-v2.webp" alt="AIエージェント ${i+1}" draggable="false"><small>SO-${String(i+1).padStart(2,'0')}</small></div>`).join('')}</div></div><div class="room-status"><span class="status-dot"></span><span class="room-activity" aria-live="off"></span><button class="campus-pause" aria-pressed="false">動きを止める Ⅱ</button></div></section>
+  <section class="campus-room" aria-labelledby="room-title" hidden><div class="room-heading"><button class="room-back">← 街に戻る</button><p class="campus-kicker room-kicker"></p><h3 id="room-title" tabindex="-1"></h3><p>小さな仲間たちが、次の可能性をつくっています。</p></div><div class="room-stage"><img class="room-photo" src="${assets}interior-photo.webp" alt="" draggable="false"><img class="room-photo room-photo-night" src="${assets}interior-night-photo.webp" alt="" draggable="false"><div class="room-agents">${[0,1,2,3].map(i=>`<div class="room-agent" data-agent="${i}"><span class="agent-thought"></span><img src="${assets}worker-v2.webp" alt="AIエージェント ${i+1}" draggable="false"><small>SO-${String(i+1).padStart(2,'0')}</small></div>`).join('')}</div></div><div class="room-status"><span class="status-dot"></span><span class="room-activity" aria-live="off"></span></div></section>
   <footer class="campus-footer"><span><i></i> A LIVING EXPERIMENT</span><span class="campus-coordinate">TOKYO / DIGITAL SPACE</span></footer>`;
   document.body.append(trigger,dialog);
   // These effects live in the same photograph coordinate system as the hotspots.
@@ -33,14 +33,13 @@
   dialog.querySelector('.campus-map').append(cityFX);
   const picker=document.createElement('div');picker.className='campus-office-picker';
   picker.innerHTML=`<select aria-label="オフィスを選ぶ"><option value="">EXPLORE THE OFFICES ↗</option>${offices.map(o=>`<option value="${o.id}">${o.name}</option>`).join('')}</select>`;dialog.append(picker);
-  const worldPause=document.createElement('button');worldPause.className='campus-world-pause';worldPause.type='button';worldPause.textContent='PAUSE Ⅱ';worldPause.setAttribute('aria-label','街の動きを停止する');dialog.querySelector('.campus-bar').append(worldPause);
   const screens=document.createElement('div');screens.className='room-screens';screens.setAttribute('aria-hidden','true');
   screens.innerHTML=Array.from({length:4},(_,i)=>`<div class="work-screen screen-${i}"><small>SOICHI / WORKSPACE</small><div class="screen-visual"><i></i><i></i><i></i><i></i><i></i></div><b class="screen-task">BUILDING</b><span class="screen-progress"><i></i></span></div>`).join('');dialog.querySelector('.room-stage').append(screens);
   dialog.querySelectorAll('.room-agent').forEach(a=>a.insertAdjacentHTML('beforeend','<span class="agent-keystrokes" aria-hidden="true">···</span><span class="agent-received" hidden>✓ 受取完了</span>'));
   const transferLayer=document.createElement('div');transferLayer.className='agent-transfers';transferLayer.setAttribute('aria-hidden','true');dialog.querySelector('.room-stage').append(transferLayer);
   const map=dialog.querySelector('.campus-map'),room=dialog.querySelector('.campus-room');
   const reduce=matchMedia('(prefers-reduced-motion: reduce)');
-  let selected=null,mode='auto',timer=null,clockTimer=null,paused=false,oldOverflow='',lastBuilding=null,mapScroll=0;
+  let selected=null,timer=null,clockTimer=null,oldOverflow='',lastBuilding=null,mapScroll=0;
   const agents=[...dialog.querySelectorAll('.room-agent')];
   const layouts={
     hq:{photos:['interior-photo','interior-night-photo'],seats:[[41,51],[72,51],[36,80],[83,80]],spots:[[50,50],[55,65],[46,88],[65,90]],screens:[[32.5,32.8,7.6,5.9],[61.5,32.8,7.6,5.9],[24,48.2,12.8,8.6],[69.5,48.2,12,8.6]]},
@@ -76,7 +75,7 @@
     for(const el of [map,roomStage]){el.style.width=sceneW+'px';el.style.height=sceneH+'px';el.style.top=(h-sceneH)+'px';}
   }
   new ResizeObserver(fitScenes).observe(dialog);
-  const motionOff=()=>paused||reduce.matches||document.body.classList.contains('motion-off');
+  const motionOff=()=>reduce.matches||document.body.classList.contains('motion-off');
   let arrivalLayer=null,arrivalAnimations=[];
   function clearArrival(){arrivalAnimations.forEach(a=>a.cancel());arrivalAnimations=[];arrivalLayer?.remove();arrivalLayer=null;}
   function approachOffice(button){
@@ -103,22 +102,51 @@
     arrivalAnimations.push(fade,inside);
     fade.finished.then(()=>{layer.remove();if(arrivalLayer===layer)arrivalLayer=null;}).catch(()=>{});
   }
+  /* Solar-position formulas adapted from SunCalc 1.9.0:
+   * https://github.com/mourner/suncalc/tree/v1.9.0
+   * Copyright (c) 2014, Vladimir Agafonkin. All rights reserved.
+   * Redistribution and use in source and binary forms, with or without modification,
+   * are permitted provided that the following conditions are met:
+   * 1. Redistributions of source code must retain the above copyright notice,
+   *    this list of conditions and the following disclaimer.
+   * 2. Redistributions in binary form must reproduce the above copyright notice,
+   *    this list of conditions and the following disclaimer in the documentation
+   *    and/or other materials provided with the distribution.
+   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+   * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+   * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+   * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+   * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+   * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+   * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+   * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */
+  function tokyoLight(date){
+    const rad=Math.PI/180,days=date.getTime()/86400000+2440587.5-2451545;
+    const anomaly=rad*(357.5291+.98560028*days);
+    const center=rad*(1.9148*Math.sin(anomaly)+.02*Math.sin(2*anomaly)+.0003*Math.sin(3*anomaly));
+    const longitude=anomaly+center+rad*102.9372+Math.PI,obliquity=rad*23.4397;
+    const declination=Math.asin(Math.sin(longitude)*Math.sin(obliquity));
+    const ascension=Math.atan2(Math.sin(longitude)*Math.cos(obliquity),Math.cos(longitude));
+    const hourAngle=rad*(280.16+360.9856235*days+139.76)-ascension,latitude=35.68*rad;
+    const altitude=Math.asin(Math.sin(latitude)*Math.sin(declination)+Math.cos(latitude)*Math.cos(declination)*Math.cos(hourAngle))/rad;
+    return {altitude,period:altitude>=6?'day':altitude<=-6?'night':'dusk',nightMix:Math.max(0,Math.min(1,(3-altitude)/9))};
+  }
   function updateTime(){
-    const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+    const now=new Date(),light=tokyoLight(now);
+    const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(now);
     const hour=Number(parts.find(p=>p.type==='hour').value),minute=parts.find(p=>p.type==='minute').value;
-    const period=mode!=='auto'?mode:hour>=7&&hour<17?'day':hour>=5&&hour<19?'dusk':'night';
-    dialog.dataset.period=period;
+    dialog.dataset.period=light.period;
+    dialog.style.setProperty('--night-mix',light.nightMix.toFixed(4));
     dialog.querySelector('.campus-clock').textContent=`TOKYO ${String(hour).padStart(2,'0')}:${minute} JST`;
-    dialog.querySelector('.campus-weather-label').textContent=(mode==='auto'?'日本時間に連動 / ':'風景プレビュー / ')+({day:'DAYLIGHT',dusk:'GOLDEN HOUR',night:'AFTER HOURS'}[period]);
+    dialog.querySelector('.campus-clock').dateTime=now.toISOString();
   }
   function syncMotion(){
     if(motionOff())arrivalAnimations.forEach(a=>{if(a.playState!=='finished')a.finish();});
     dialog.classList.toggle('campus-still',motionOff());
     dialog.classList.toggle('campus-suspended',document.hidden||!dialog.open);
-    worldPause.textContent=motionOff()?'PLAY ▷':'PAUSE Ⅱ';worldPause.setAttribute('aria-pressed',String(motionOff()));worldPause.setAttribute('aria-label',motionOff()?'街の動きを再開する':'街の動きを停止する');worldPause.disabled=reduce.matches||document.body.classList.contains('motion-off');
-    dialog.querySelector('.campus-pause').textContent=motionOff()?'動きを再開する ▷':'動きを止める Ⅱ';
-    dialog.querySelector('.campus-pause').setAttribute('aria-pressed',String(motionOff()));
-    dialog.querySelector('.campus-pause').disabled=reduce.matches||document.body.classList.contains('motion-off');
     clearTimeout(timer);
     transfers.forEach(t=>{if(motionOff()||document.hidden||!dialog.open)t.animation.pause();else t.animation.play();});
     if(dialog.open&&selected&&roomReady&&!motionOff()&&!document.hidden)timer=setTimeout(activity,500);
@@ -201,10 +229,8 @@
   dialog.addEventListener('close',()=>{if(selected)leaveOffice();clearTimeout(timer);clearInterval(clockTimer);document.body.style.overflow=oldOverflow;trigger.setAttribute('aria-expanded','false');document.dispatchEvent(new Event('campus:close'));trigger.focus({preventScroll:true});});
   dialog.querySelector('.room-back').addEventListener('click',leaveOffice);
   dialog.querySelectorAll('[data-office]').forEach(b=>b.addEventListener('click',()=>enterOffice(b)));
-  dialog.querySelectorAll('[data-time]').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.time;dialog.querySelectorAll('[data-time]').forEach(t=>t.setAttribute('aria-pressed',String(t===b)));updateTime();}));
-  dialog.querySelector('.campus-pause').addEventListener('click',()=>{paused=!paused;syncMotion();});
-  worldPause.addEventListener('click',()=>{paused=!paused;syncMotion();});
   picker.querySelector('select').addEventListener('change',e=>{const button=dialog.querySelector(`[data-office="${e.target.value}"]`);if(button)enterOffice(button);});
-  reduce.addEventListener('change',syncMotion);document.addEventListener('visibilitychange',syncMotion);
+  reduce.addEventListener('change',syncMotion);document.addEventListener('visibilitychange',()=>{if(dialog.open)updateTime();syncMotion();});
+  window.addEventListener('focus',()=>{if(dialog.open)updateTime();});
   new MutationObserver(syncMotion).observe(document.body,{attributes:true,attributeFilter:['class']});
 })();
