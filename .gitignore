@@ -1,0 +1,7 @@
+.DS_Store
+mock-v01/
+output/
+.deployment/
+STATE.md
+AGENTS.md
+tools/DRIVE-CONNECTION.md

@@ -127,191 +127,26 @@ def parse(path: Path) -> dict:
 
 
 def shell(a: dict, base: str = "../") -> str:
-    """記事1ページ。news.html と同じ外枠を使う（トンマナを別に持たないため）。"""
-    dot = str(a["date"]).replace("-", ".")
-    tags = "".join(f'<span class="inline-block px-3 py-1 text-xs font-bold border border-gray-300 '
-                   f'text-gray-600 mr-2 mb-2">{html.escape(t)}</span>' for t in a.get("tags", []))
-    return f"""<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{html.escape(a['title'])} | Soichi Inc.</title>
-    <meta name="description" content="{html.escape(a['excerpt'])}">
-    <meta property="og:title" content="{html.escape(a['title'])}">
-    <meta property="og:description" content="{html.escape(a['excerpt'])}">
-    <meta property="og:type" content="article">
-    <link rel="icon" href="{base}images/favicon.png" type="image/png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
-        rel="stylesheet">
-    <script>
-        tailwind.config = {{
-            theme: {{
-                extend: {{
-                    fontFamily: {{ sans: ['Inter', 'Noto Sans JP', 'sans-serif'] }},
-                    colors: {{
-                        'soichi-black': '#1a1a1a',
-                        'soichi-gray': '#f5f5f7',
-                        'soichi-blue': '#0066cc',
-                        'soichi-red': '#cc0000',
-                        'soichi-yellow': '#FFD700',
-                    }}
-                }}
-            }}
-        }}
-    </script>
-    <link href="{base}css/custom.css" rel="stylesheet">
-    <style>
-        body {{ font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }}
-    </style>
-</head>
-
-<body class="bg-white text-black">
-
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md text-black transition-all duration-300 border-b border-gray-100"
-        id="navbar">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-            <div class="flex justify-between h-24 items-center">
-                <a href="{base}index.html" class="block">
-                    <img src="{base}images/logo.png" alt="SOICHI" class="h-8 md:h-10 w-auto">
-                </a>
-                <div class="hidden md:flex space-x-12">
-                    <a href="{base}about.html" class="nav-link text-sm uppercase">About</a>
-                    <a href="{base}services.html" class="nav-link text-sm uppercase">Services</a>
-                    <a href="{base}news.html" class="nav-link text-sm uppercase">News</a>
-                    <a href="{base}contact.html" class="nav-link text-sm uppercase">Contact</a>
-                </div>
-                <button id="mobile-menu-btn" class="md:hidden text-black focus:outline-none">
-                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div id="mobile-menu"
-            class="hidden md:hidden bg-black text-white absolute w-full h-screen top-0 left-0 flex flex-col justify-center items-center space-y-8 z-40">
-            <button id="mobile-menu-close" class="absolute top-8 right-6 text-white">
-                <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <a href="{base}about.html" class="text-2xl font-bold">ABOUT</a>
-            <a href="{base}services.html" class="text-2xl font-bold">SERVICES</a>
-            <a href="{base}news.html" class="text-2xl font-bold">NEWS</a>
-            <a href="{base}contact.html" class="text-2xl font-bold">CONTACT</a>
-        </div>
-    </nav>
-
-    <main class="pt-32 pb-24">
-        <article class="max-w-3xl mx-auto px-6 lg:px-0">
-            <header class="mb-16">
-                <div class="flex items-center gap-4 mb-6">
-                    <time class="text-sm font-mono text-gray-500">{dot}</time>
-                    <span class="inline-block px-3 py-1 text-xs font-bold text-white bg-black">{html.escape(a['category'])}</span>
-                </div>
-                <h1 class="text-3xl md:text-5xl font-black leading-tight tracking-tight mb-8">{html.escape(a['title'])}</h1>
-                <p class="text-lg text-gray-600 leading-relaxed border-l-4 border-soichi-yellow pl-5">{html.escape(a['excerpt'])}</p>
-            </header>
-
-            <div class="article-body">
-            {to_html(a['body'])}
-            </div>
-
-            <div class="mt-16 pt-8 border-t border-gray-200">
-                {tags}
-            </div>
-
-            <div class="mt-16">
-                <a href="{base}news.html" class="inline-flex items-center text-lg font-bold hover:underline decoration-2 underline-offset-4">
-                    <span class="mr-2">←</span> News 一覧へ
-                </a>
-            </div>
-        </article>
-
-        <section class="py-24 bg-black text-white text-center mt-24">
-            <div class="max-w-4xl mx-auto px-4">
-                <h2 class="text-3xl md:text-4xl font-bold mb-8">Contact</h2>
-                <p class="text-gray-400 mb-10 text-lg">
-                    記事の内容についてのご相談、お仕事のご依頼はこちらからお願いいたします。
-                </p>
-                <a href="{base}contact.html"
-                    class="inline-block px-12 py-5 text-lg font-bold text-black bg-soichi-yellow rounded-full hover:bg-white transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    Contact Us
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-black text-white py-24 px-6 lg:px-12">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-16 mb-24">
-                <div>
-                    <h2 class="text-4xl font-black mb-8">SOICHI</h2>
-                    <p class="text-gray-400 font-medium leading-relaxed max-w-md">
-                        〒107-0061<br>東京都港区北青山二丁目14番4号
-                    </p>
-                </div>
-                <div class="flex flex-col space-y-6 items-start md:items-end">
-                    <a href="{base}about.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">ABOUT</a>
-                    <a href="{base}services.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">SERVICES</a>
-                    <a href="{base}news.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">NEWS</a>
-                    <a href="{base}contact.html" class="text-3xl font-bold hover:text-gray-400 transition-colors">CONTACT</a>
-                </div>
-            </div>
-            <div
-                class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-                <div class="flex flex-col md:flex-row md:space-x-8 items-center mb-4 md:mb-0">
-                    <p>&copy; 2025 Soichi, Inc.</p>
-                    <a href="{base}privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="{base}tokushoho.html" class="hover:text-white transition-colors">特定商取引法に基づく表記</a>
-                </div>
-                <p>Technology x Creative</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const closeBtn = document.getElementById('mobile-menu-close');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => menu.classList.remove('hidden'));
-        closeBtn.addEventListener('click', () => menu.classList.add('hidden'));
-    </script>
-</body>
-
-</html>
-"""
+    """Use the production News shell; retain the established Markdown authoring flow."""
+    template = NEWS.read_text(encoding="utf-8")
+    title = html.escape(a["title"])
+    dot = html.escape(str(a["date"]).replace("-", "."))
+    body = re.sub(r' class="[^"]*"', '', to_html(a["body"]))
+    main = (f'<article class="article-page"><a class="eyebrow" href="/news.html">← ALL NEWS</a>'
+            f'<p class="article-date">{dot} / {html.escape(a["category"])}</p>'
+            f'<h1>{title}</h1><div class="prose">{body}</div></article>')
+    template = re.sub(r'<main id="main">[\s\S]*?</main>', lambda _: '<main id="main">' + main + '</main>', template)
+    template = re.sub(r'<title>[\s\S]*?</title>', lambda _: f'<title>{title} — Soichi</title>', template)
+    template = re.sub(r'<link rel="canonical"[^>]+>', lambda _: f'<link rel="canonical" href="https://soichi.tokyo/articles/{a["slug"]}.html">', template)
+    return template.replace('</head>', f'<meta name="description" content="{html.escape(a["excerpt"], quote=True)}"></head>')
 
 
 def news_item(a: dict) -> str:
-    dot = str(a["date"]).replace("-", ".")
-    return f"""                <article class="border-t border-gray-200 py-12 fade-up group">
-                    <div class="grid md:grid-cols-12 gap-8">
-                        <div class="md:col-span-3">
-                            <time class="text-sm font-mono text-gray-500">{dot}</time>
-                            <div class="mt-2">
-                                <span class="inline-block px-3 py-1 text-xs font-bold text-white bg-black">{html.escape(a['category'])}</span>
-                            </div>
-                        </div>
-                        <div class="md:col-span-9">
-                            <h2
-                                class="text-2xl md:text-3xl font-bold mb-6 leading-tight group-hover:text-gray-600 transition-colors">
-                                {html.escape(a['title'])}
-                            </h2>
-                            <p class="text-gray-600 mb-8 leading-relaxed">
-                                {html.escape(a['excerpt'])}
-                            </p>
-                            <a href="articles/{a['slug']}.html"
-                                class="inline-flex items-center text-lg font-bold hover:underline decoration-2 underline-offset-4">
-                                READ MORE <span class="ml-2">→</span>
-                            </a>
-                        </div>
-                    </div>
-                </article>"""
+    dot = html.escape(str(a["date"]).replace("-", "."))
+    return (f'<article class="news-row"><div><time>{dot}</time><small>{html.escape(a["category"])}</small></div>'
+            f'<div><h3>{html.escape(a["title"])}</h3><p>{html.escape(a["excerpt"])}</p>'
+            f'<a class="text-link" href="/articles/{a["slug"]}.html"><span>READ MORE</span>'
+            '<span class="arrow" aria-hidden="true">↗</span></a></div></article>')
 
 
 def main() -> int:
